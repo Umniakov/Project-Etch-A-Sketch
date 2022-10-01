@@ -9,6 +9,28 @@
     <title>EAS</title>
 </head>
 <body>
-    <div>hi</div>
+    <form action="#" id="form-user" class="input-container">
+    <div class="grid-size" data-errormsg="">
+        <label for="textbox">Enter a grid size: (100max)</label>
+        <input type="text" class="textbox" id="textbox" autofocus placeholder="Name"tabindex="1">
+        <button id="button1">Submit</button>
+    </div>
+    <div class="color-play">
+        <div class="color option">
+            <label for="favcolor">Select your favorite color:</label>
+            <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+        </div>
+        <div class="color option">
+            <label for="rainbow">Rainbow mod</label>
+            <input type="checkbox" id="rainbow" class="rainbow">
+        </div>
+        <div class="strength option">
+            <label for="shadowing">Strength</label>
+            <input type="checkbox" id="shadowing" class="shadowing">
+        </div>
+    </div>
+    </form>
+    <div class="container default">
+    </div>
 </body>
 </html>
