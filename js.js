@@ -39,6 +39,7 @@ function gridMaker() {
     } else {
         resizeField(16);
     }
+    document.getElementById('textbox').value = '';
 }
 
 function resizeField (inputInt) {
