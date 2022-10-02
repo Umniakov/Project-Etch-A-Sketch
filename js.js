@@ -11,6 +11,7 @@ let strength = shadowing.addEventListener('change', makeStrength);
 const SQUARE = 640000;
 let rainbowModCheck = false;
 let strengthModCheck = false;
+let intValue = 16;
 let opacityValue = [];
 
 defaultGrid();
@@ -31,15 +32,24 @@ submit.addEventListener('click', e => {
     gridMaker();
 });
 
+reset.addEventListener('click', e => {
+    e.preventDefault();
+    gridMaker();
+});
+
 function gridMaker() {
     let input = document.getElementById('textbox');
-    let inputInt = Number(input.value);
-    if (inputInt < 100 && 0 < inputInt) {
-        resizeField(inputInt);
+    if (input.value) {
+        intValue = Number(input.value);
+        if (intValue < 100 && 0 < intValue) {
+            resizeField(intValue);
+            document.getElementById('textbox').value = '';
+        } else {
+            resizeField(16);
+        }
     } else {
-        resizeField(16);
+        resizeField(intValue);
     }
-    document.getElementById('textbox').value = '';
 }
 
 function resizeField (inputInt) {
@@ -78,13 +88,6 @@ function changeColor(e) {
     } else {
         e.target.style.backgroundColor = setFinalColor();
     }
-}
-
-reset.addEventListener('click', resetFilledBoxes);
-
-function resetFilledBoxes(e) {
-    e.preventDefault();
-    gridMaker();
 }
 
 function takeColor() {
