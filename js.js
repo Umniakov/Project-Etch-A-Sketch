@@ -4,14 +4,13 @@ const submit = document.querySelector('#button-submit');
 const reset = document.querySelector('#button-reset');
 const color = document.querySelector('#fav-color');
 const rainbow = document.querySelector('#rainbow');
-const shadowing = document.querySelector('#shadowing')
+const shadowing = document.querySelector('#shadowing');
+let colorHere = color.addEventListener('input', takeColor);
+let rainbowMod = rainbow.addEventListener('change', makeRainbow);
+let strength = shadowing.addEventListener('change', makeStrength);
 const SQUARE = 640000;
 let rainbowModCheck = false;
 let strengthModCheck = false;
-
-let colorHere = color.addEventListener('input', takeColor)
-let rainbowMod = rainbow.addEventListener('change', makeRainbow);
-let strength = shadowing.addEventListener('change', makeStrength);
 let opacityValue = [];
 
 defaultGrid();
@@ -45,8 +44,6 @@ function gridMaker() {
 function resizeField (inputInt) {
     container.innerHTML= '';
     let size = Number(Math.sqrt(SQUARE / Math.pow(inputInt, 2))).toFixed(5);
-    console.log(size);
-    console.log(inputInt * inputInt)
     container.classList.remove('default');
     for (let i = 0; i < Math.pow(inputInt, 2); i++) {
         let baby = document.createElement('div');
@@ -64,7 +61,6 @@ function listenAfterSizeChanged () {
     for (let i = 0; i < pixel.length; i++) {
         opacityValue[i] = 0.1;
     }
-    console.log(opacityValue);
     pixel.forEach(e => e.addEventListener('mouseover', changeColor));
 }
 function changeColor(e) {
@@ -87,7 +83,6 @@ reset.addEventListener('click', resetFilledBoxes);
 
 function resetFilledBoxes(e) {
     e.preventDefault();
-    console.log('hihi')
     gridMaker();
 }
 

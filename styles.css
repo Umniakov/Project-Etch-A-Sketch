@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 1.5rem;
+    /* outline: 1px solid red; */
 }
 
 html {
@@ -39,8 +40,12 @@ body {
 }
 
 .input-container {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    
+    gap: 20px;
 }
 
 .grid-size {
@@ -48,5 +53,40 @@ body {
 }
 
 .color-play {
+    display: flex;
+    justify-content: center;
     flex: 1 1 0;
+}
+
+#shadowing,
+#rainbow {
+    width: 25px;
+    height: 25px;
+}
+
+#textbox {
+    width: 150px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.option {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+.number-select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
