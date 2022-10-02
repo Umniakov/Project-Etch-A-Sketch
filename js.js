@@ -12,6 +12,7 @@ let strengthModCheck = false;
 let colorHere = color.addEventListener('input', takeColor)
 let rainbowMod = rainbow.addEventListener('change', makeRainbow);
 let strength = shadowing.addEventListener('change', makeStrength);
+let opacityValue = [];
 
 defaultGrid();
 
@@ -21,6 +22,7 @@ function defaultGrid() {
         let baby = document.createElement('div');
         baby.classList.add('pixel')
         container.appendChild(baby);
+        baby.setAttribute('id', `${i}`);
     }
     listenAfterSizeChanged();
 }
@@ -28,13 +30,13 @@ function defaultGrid() {
 submit.addEventListener('click', e => {
     e.preventDefault(); 
     gridMaker();
-    });
+});
 
 function gridMaker() {
     let input = document.getElementById('textbox');
     let inputInt = Number(input.value);
     if (inputInt < 100 && 0 < inputInt) {
-            resizeField(inputInt);
+        resizeField(inputInt);
     } else {
         resizeField(16);
     }
@@ -49,6 +51,7 @@ function resizeField (inputInt) {
     for (let i = 0; i < Math.pow(inputInt, 2); i++) {
         let baby = document.createElement('div');
         baby.classList.add('pixel');
+        baby.setAttribute('id', `${i}`);
         baby.style.width = `${size}px`;
         baby.style.height = `${size}px`;
         container.appendChild(baby);
@@ -57,15 +60,26 @@ function resizeField (inputInt) {
 }
 
 function listenAfterSizeChanged () {
-const pixel = document.querySelectorAll('.pixel');
-pixel.forEach(e => e.addEventListener('mouseover', changeColor));
+    const pixel = document.querySelectorAll('.pixel');
+    for (let i = 0; i < pixel.length; i++) {
+        opacityValue[i] = 0.1;
+    }
+    console.log(opacityValue);
+    pixel.forEach(e => e.addEventListener('mouseover', changeColor));
+}
 function changeColor(e) {
     if (strengthModCheck) {
-        e.target.style.backgroundColor = 'blue';
+        if (e.target.style.backgroundColor) {
+            opacityValue[e.target.id] += 0.1;
+            let temp = parseFloat(opacityValue[e.target.id]).toFixed(1);
+            if (temp <= 1.0) {
+                e.target.style.backgroundColor = addAlpha(takeColor(), temp); 
+            }        
+        } else {
+            e.target.style.backgroundColor = addAlpha(takeColor(), 0.1);
+        }   
     } else {
         e.target.style.backgroundColor = setFinalColor();
-    // console.log(e.target)
-    }
     }
 }
 
@@ -77,16 +91,11 @@ function resetFilledBoxes(e) {
     gridMaker();
 }
 
-
-
 function takeColor() {
-    console.log(color.value)
     return color.value;
 }
 
-
 function makeRainbow() {
-    
     if (this.checked) {
         rainbowModCheck = true; 
     } else {
@@ -109,23 +118,14 @@ function setFinalColor() {
     if (rainbowModCheck && !strengthModCheck) {
         color = '#' + (Math.random()*0xFFFFFF<<0).toString(16);
         return color;
-    } else if (strengthModCheck) {
-        color = addAlpha(`${takeColor()}`);
-        console.log(color)
-        return color;
     } else {
         color = takeColor();
         return color;
     }
 }
 
-function addAlpha(color) {
-    console.log(color.length)
-    // if (color.length)
-    let sum = 0;
-    let tenPercent = Math.round(255 * 0.1);
-    console.log(color + tenPercent.toString(16));
-    sum += tenPercent;
-    return color + tenPercent.toString(16);
-
+function addAlpha(color, opacity) {
+    let opacityPercent = Math.round(Math.max(opacity || 1) * 255);
+    return color + opacityPercent.toString(16);
 }
+
